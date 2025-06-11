@@ -5,23 +5,25 @@ form.addEventListener("submit",(e)=>{
 	e.preventDefault();
 	const name = nameInput.value.trim();
     const age = parseInt(ageInput.value.trim());
-	if(name.value==""||age.value==null){
+	if(!name || isNaN(age)){
 		alert("Please enter valid details.");
 		return;
 	}
-	const validation=new promise((res,rej)=>{
-	setTimeout(()=>{
-		if(age>18){
-			res(name);
-		}
-		else{
-			rej(name);
-		}
-	},4000)
-	validation.then((uname)=>{
-		alert(`Welcome, ${uname}. You can vote.`);
-	}).catch(()=>{
-		alert(`Oh sorry ${uname}. You aren't old enough.`);
-	})
-})
+	 const validation = new Promise((res, rej) => {
+    setTimeout(() => {
+      if (age > 18) {
+        res(name);
+      } else {
+        rej(name);
+      }
+    }, 4000);
+  });
+
+  validation
+    .then((uname) => {
+      alert(`Welcome, ${uname}. You can vote.`);
+    })
+    .catch((uname) => {
+      alert(`Oh sorry ${uname}. You aren't old enough.`);
+    });
 })
